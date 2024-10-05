@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
     LineChart,
     Line,
@@ -32,23 +32,37 @@ const ConductivitySimulator = () => {
     const [current, setCurrent] = useState(0);
     const [resistance, setResistance] = useState(0);
 
-    useEffect(() => {
-        calculateCurrent(); // Recalcular cuando cambie el material o los parámetros
-    }, [material, voltage, length]);
-
-    const calculateResistance = () => {
+    const calculateResistance = useCallback(() => {
         const resistivity = materials[material].resistivity;
         const area = 1e-6; // Área en m² (se puede ajustar)
         const resistance = (resistivity * length) / area; // R = ρL/A
         setResistance(resistance);
         return resistance;
-    };
+    }, [material, length]);
 
-    const calculateCurrent = () => {
+    // const calculateResistance = () => {
+    //     const resistivity = materials[material].resistivity;
+    //     const area = 1e-6; // Área en m² (se puede ajustar)
+    //     const resistance = (resistivity * length) / area; // R = ρL/A
+    //     setResistance(resistance);
+    //     return resistance;
+    // };
+
+    const calculateCurrent = useCallback(() => {
         const resistance = calculateResistance();
         const current = voltage / resistance; // I = V/R
         setCurrent(current);
-    };
+    }, [voltage, calculateResistance]);
+
+    // const calculateCurrent = () => {
+    //     const resistance = calculateResistance();
+    //     const current = voltage / resistance; // I = V/R
+    //     setCurrent(current);
+    // };
+
+    useEffect(() => {
+        calculateCurrent(); // Recalcular cuando cambie el material o los parámetros
+    }, [calculateCurrent]);
 
     const handleMaterialChange = (event) => {
         setMaterial(event.target.value);
