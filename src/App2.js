@@ -40,25 +40,11 @@ const ConductivitySimulator = () => {
         return resistance;
     }, [material, length]);
 
-    // const calculateResistance = () => {
-    //     const resistivity = materials[material].resistivity;
-    //     const area = 1e-6; // Área en m² (se puede ajustar)
-    //     const resistance = (resistivity * length) / area; // R = ρL/A
-    //     setResistance(resistance);
-    //     return resistance;
-    // };
-
     const calculateCurrent = useCallback(() => {
         const resistance = calculateResistance();
         const current = voltage / resistance; // I = V/R
         setCurrent(current);
     }, [voltage, calculateResistance]);
-
-    // const calculateCurrent = () => {
-    //     const resistance = calculateResistance();
-    //     const current = voltage / resistance; // I = V/R
-    //     setCurrent(current);
-    // };
 
     useEffect(() => {
         calculateCurrent(); // Recalcular cuando cambie el material o los parámetros
