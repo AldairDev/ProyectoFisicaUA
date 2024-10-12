@@ -1,4 +1,10 @@
-.App {
+/* src/styles/App.css */
+.app {
   text-align: center;
-  margin-top: 50px;
+  padding: 20px;
+}
+
+.material-selector label {
+  display: block;
+  margin: 10px 0;
 }
