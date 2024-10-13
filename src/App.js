@@ -149,6 +149,23 @@
 // };
 //
 // export default ConductivitySimulator;
+// import React from 'react';
+// import { Slider, Typography } from '@mui/material';
+//
+// const LengthSlider = ({ length, setLength }) => (
+//     <>
+//         <Typography>Longitud (m): {length}m</Typography>
+//         <Slider
+//             value={length}
+//             onChange={(e, newValue) => setLength(newValue)}
+//             min={0.1}
+//             max={10}
+//             step={0.1}
+//         />
+//     </>
+// );
+//
+// export default LengthSlider;
 
 import React from 'react';
 import ConductivitySimulator from './components/ConductivitySimulator';

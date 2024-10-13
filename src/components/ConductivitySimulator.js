@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import MaterialSelect from './MaterialSelect';
 import VoltageSlider from './VoltageSlider';
 import LengthSlider from './LengthSlider';
@@ -14,23 +14,24 @@ const ConductivitySimulator = () => {
     const [current, setCurrent] = useState(0);
     const [resistance, setResistance] = useState(0);
 
-    useEffect(() => {
-        calculateCurrent();
-    }, [material, voltage, length]);
-
-    const calculateResistance = () => {
+    // Memoriza la función para que no cambie en cada render
+    const calculateResistance = useCallback(() => {
         const resistivity = materials[material].resistivity;
-        const area = 1e-6;
+        const area = 1e-6; // Área fija
         const resistance = (resistivity * length) / area;
         setResistance(resistance);
         return resistance;
-    };
+    }, [material, length]);  // Solo se recalcula si cambian 'material' o 'length'
 
-    const calculateCurrent = () => {
+    const calculateCurrent = useCallback(() => {
         const resistance = calculateResistance();
         const current = voltage / resistance;
         setCurrent(current);
-    };
+    }, [voltage, calculateResistance]);  // Incluye 'voltage' y la función memoizada
+
+    useEffect(() => {
+        calculateCurrent();  // Usa la función memoizada
+    }, [material, voltage, length, calculateCurrent]);  // Añade 'calculateCurrent' como dependencia
 
     return (
         <>
