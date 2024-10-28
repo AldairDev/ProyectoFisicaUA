@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 
 const LengthSlider = ({ value, onChange }) => (
     <>
-        <Typography>Longitud (m): {value}m</Typography>
+        <Typography  variant="h6" >Longitud (m): {value}m</Typography>
         <Slider
             value={value}
             min={0.1}

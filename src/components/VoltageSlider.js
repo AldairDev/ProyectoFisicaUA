@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 
 const VoltageSlider = ({ value, onChange }) => (
     <>
-        <Typography>Voltaje (V): {value}V</Typography>
+        <Typography variant="h6">Voltaje (V): {value}V</Typography>
         <Slider
             value={value}
             min={0}
